@@ -18,8 +18,11 @@ This folder contains the code and description for **Phase 2** of the Amazon Revi
 1. Start Elasticsearch (for example via Docker):
    ```bash
    docker compose up -d
+```bash
 pip install elasticsearch pandas
 python es_index_setup.py
 python es_groupB_queries.py
+```
+
 
 
