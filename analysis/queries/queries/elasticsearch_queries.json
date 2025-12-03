@@ -1,0 +1,50 @@
+// 4. Find reviews that mention “easy” but do not include “again.”
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match": { "review_text": "easy" }
+      },
+      "must_not": {
+        "match": { "review_text": "again" }
+      }
+    }
+  }
+}
+
+// 5. Retrieve reviews where users misspelled “Refrigerator Parts” and rated with 3.5 stars or below.
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "review_text": {
+              "query": "Refrigerator Parts",
+              "fuzziness": "AUTO"
+            }
+          }
+        },
+        {
+          "range": {
+            "rating": { "lte": 3.5 }
+          }
+        }
+      ]
+    }
+  }
+}
+
+// 6. Get a list of reviews where the reviewer mentioned “bad quality” within five words of “expensive.”
+{
+  "query": {
+    "span_near": {
+      "clauses": [
+        { "span_term": { "review_text": "bad quality" } },
+        { "span_term": { "review_text": "expensive" } }
+      ],
+      "slop": 5,
+      "in_order": false
+    }
+  }
+}
